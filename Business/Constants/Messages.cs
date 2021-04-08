@@ -24,5 +24,11 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Jeton Üretildi";
 
         public static string AuthorizationDenied = "Erişim Yetkisi Bulunamadı";
+
+        public static string RentalExists = "Bu Kitap Şu Anda Bulunmuyor";
+
+        public static string RentalSucced = "Kiralama Başarılı";
+
+        public static string RentalDeleted = "Sipariş İptal Edildi";
     }
 }
