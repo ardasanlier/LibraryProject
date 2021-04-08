@@ -9,6 +9,7 @@ namespace Entity.Concrete
     {
         public int BookId { get; set; }
         public int CategoryId { get; set; }
+        public string AuthorName { get; set; }
         public string BookName { get; set; }
         public string Publisher { get; set; }
         public int PageCount { get; set; }

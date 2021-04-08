@@ -10,6 +10,7 @@ namespace Entity.Concrete
         public int RentalId { get; set; }
         public int UserId { get; set; }
         public int BookId { get; set; }
+        public string BookName { get; set; }
         public DateTime TakeDate { get; set; }
         public DateTime ReturnDate { get; set; }
     }

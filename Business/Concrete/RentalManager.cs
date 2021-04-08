@@ -33,14 +33,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalSucced);
         }
 
-        public IDataResult<List<RentalDetail>> GetRentalDetails(User user, Book book)
+        public IDataResult<List<RentalDetail>> GetRentalDetails(User user)
         {
-            return new SuccessDataResult<List<RentalDetail>>(_rentalDal.GetRentalDetails(user, book.BookId));
+            return new SuccessDataResult<List<RentalDetail>>(_rentalDal.GetRentalDetails(user));
         }
 
         private IResult CheckIfRentalExists(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.BookId == rental.BookId).Any();
+            var result = _rentalDal.GetAll(r => r.BookId == rental.BookId && rental.ReturnDate==null && r.BookName == rental.BookName).Any();
             if (result)
             {
                 return new ErrorResult(Messages.RentalExists);

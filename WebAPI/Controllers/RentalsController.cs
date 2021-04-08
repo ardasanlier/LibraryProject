@@ -31,9 +31,10 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpGet("getrentaldetail")]
-        public IActionResult GetRentalDetail(User user, Book book)
+        public IActionResult GetRentalDetail(User user)
+
         {
-            var result = _rentalService.GetRentalDetails(user, book);
+            var result = _rentalService.GetRentalDetails(user);
             if (result.Success)
             {
                 return Ok(result.Message);
