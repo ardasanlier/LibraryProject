@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -21,5 +22,7 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Kullanıcı Zaten Bulunuyor";
 
         public static string AccessTokenCreated = "Jeton Üretildi";
+
+        public static string AuthorizationDenied = "Erişim Yetkisi Bulunamadı";
     }
 }

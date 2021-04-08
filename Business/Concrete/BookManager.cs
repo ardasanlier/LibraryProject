@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -22,6 +23,7 @@ namespace Business.Concrete
             _bookDal = bookDal;
         }
 
+        [SecuredOperation("book.add admin")]
         [ValidationAspect(typeof(BookValidator))]
         public IResult Add(Book book)
         {
@@ -58,11 +60,6 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BookValidator))]
         public IResult Update(Book book)
         {
-            IResult result = BusinessRules.Run(CheckIfBookNameExists(book));
-            if (result != null)
-            {
-                return result;
-            }
             _bookDal.Update(book);
             return new SuccessResult(Messages.BookUpdated);
         }
