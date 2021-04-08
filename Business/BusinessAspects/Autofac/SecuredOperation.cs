@@ -1,12 +1,14 @@
 ﻿using Business.Constants;
-using Castle.DynamicProxy;
 using Core.Extensions;
 using Core.Utilites.Interceptors;
 using Core.Utilites.IoC;
 using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using Castle.DynamicProxy;
 
 namespace Business.BusinessAspects.Autofac
 {
@@ -18,7 +20,7 @@ namespace Business.BusinessAspects.Autofac
         public SecuredOperation(string roles)
         {
             _roles = roles.Split(',');
-            //_httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
         protected override void OnBefore(IInvocation invocation)
         {
