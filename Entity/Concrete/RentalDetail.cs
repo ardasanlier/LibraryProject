@@ -7,6 +7,7 @@ namespace Entity.Dtos
 {
     public class RentalDetail:IEntity
     {
+        public int RentalDetailId { get; set; }
         public int RentalId { get; set; }
         public string Email { get; set; }
         public string BookName { get; set; }
