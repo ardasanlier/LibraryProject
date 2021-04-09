@@ -21,5 +21,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<RentalDetail> RentalDetails { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Author> Authors { get; set; }
     }
 }

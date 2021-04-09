@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
         [HttpDelete("delete")]
         public IActionResult Delete(Book book)
         {
@@ -40,6 +41,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
         [HttpPost("add")]
         public IActionResult Add(Book book)
         {
@@ -50,6 +52,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
         [HttpPost("update")]
         public IActionResult Update(Book book)
         {
@@ -60,6 +63,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
         [HttpGet("getbycategoryid")]
         public IActionResult GetByCategoryId(int categoryId)
         {
@@ -70,10 +74,33 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
         [HttpGet("getbyid")]
         public IActionResult GetById(int bookId)
         {
             var result = _bookService.GetById(bookId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbypublisher")]
+        public IActionResult GetByPublisher(int publisherId)
+        {
+            var result = _bookService.GetByPublisher(publisherId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbyauthor")]
+        public IActionResult GetByAuthor(int authorId)
+        {
+            var result = _bookService.GetByPublisher(authorId);
             if (result.Success)
             {
                 return Ok(result.Data);

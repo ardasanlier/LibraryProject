@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilites.Business;
 using Core.Utilites.Results;
@@ -22,6 +24,7 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             IResult result = BusinessRules.Run(CheckIfRentalExists(rental));
@@ -40,7 +43,7 @@ namespace Business.Concrete
 
         private IResult CheckIfRentalExists(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.BookId == rental.BookId && rental.ReturnDate==null && r.BookName == rental.BookName).Any();
+            var result = _rentalDal.GetAll(r => r.BookId == rental.BookId && rental.ReturnDate>DateTime.Now).Any();
             if (result)
             {
                 return new ErrorResult(Messages.RentalExists);

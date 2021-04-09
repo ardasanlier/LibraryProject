@@ -30,5 +30,14 @@ namespace Business.Constants
         public static string RentalSucced = "Kiralama Başarılı";
 
         public static string RentalDeleted = "Sipariş İptal Edildi";
+
+        public static string PublisherAdded = "Yayıncı Eklendi";
+
+        public static string PublisherUpdated = "Yayınevi Güncellendi";
+        public static string PublisherExists = "Yayınevi Zaten Bulunuyor";
+
+        public static string AuthorAdded = "Yazar Eklendi";
+
+        public static string AuthorExists = "Yazar Zaten Bulunuyor";
     }
 }

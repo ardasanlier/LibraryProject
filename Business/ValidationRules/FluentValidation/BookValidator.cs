@@ -11,6 +11,8 @@ namespace Business.ValidationRules.FluentValidation
         public BookValidator()
         {
             RuleFor(b => b.BookName).NotNull();
+            RuleFor(b => b.AuthorId).NotNull();
+            RuleFor(b => b.PageCount).NotNull();
         }
     }
 }
