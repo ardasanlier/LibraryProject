@@ -24,13 +24,13 @@ namespace Business.Concrete
             _bookDal = bookDal;
         }
 
-        [SecuredOperation("book.add admin")]
+        [SecuredOperation("book.add,admin")]
         [CacheRemoveAspect("IBookService.Get")]
         [ValidationAspect(typeof(BookValidator))]
         public IResult Add(Book book)
         {
             IResult result = BusinessRules.Run(CheckIfBookExists(book));
-            if (!result.Success)
+            if (result != null)
             {
                 return result;
             }
@@ -38,7 +38,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BookAdded);
         }
 
-        [SecuredOperation("book.delete admin")]
+        [SecuredOperation("book.delete,admin")]
         public IResult Delete(Book book)
         {
             _bookDal.Delete(book);
@@ -71,7 +71,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Book>>(_bookDal.GetAll(b => b.PublisherId == publisherId));
         }
 
-        [SecuredOperation("book.update admin")]
+        [SecuredOperation("book.update,admin")]
         [ValidationAspect(typeof(BookValidator))]
         public IResult Update(Book book)
         {

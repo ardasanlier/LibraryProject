@@ -1,4 +1,3 @@
-using Core.Utilites.Security.JWT;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,11 +12,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Core.Utilites.Security.Encryption;
 using Microsoft.AspNetCore.Http;
 using Core.Utilites.IoC;
 using Core.DependencyResolvers;
 using Core.Extensions;
+using Core.Utilites.Security.JWT;
+using Core.Utilites.Security.Encryption;
 
 namespace WebAPI
 {
@@ -35,8 +35,6 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            
-
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -53,6 +51,7 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
+
             services.AddDependencyResolvers(new ICoreModule[] { 
             new CoreModule()
             });
@@ -65,6 +64,7 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
 

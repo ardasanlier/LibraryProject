@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 
 namespace Business.BusinessAspects.Autofac
 {
@@ -21,7 +22,9 @@ namespace Business.BusinessAspects.Autofac
         {
             _roles = roles.Split(',');
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+
         }
+
         protected override void OnBefore(IInvocation invocation)
         {
             var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();

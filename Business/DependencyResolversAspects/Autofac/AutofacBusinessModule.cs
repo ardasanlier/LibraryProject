@@ -35,6 +35,9 @@ namespace Business.Aspects.Autofac
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
             builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
 
+            builder.RegisterType<PublisherManager>().As<IPublisherService>().SingleInstance();
+            builder.RegisterType<EfPublisherDal>().As<IPublisherDal>().SingleInstance();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

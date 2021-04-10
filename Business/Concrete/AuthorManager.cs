@@ -24,13 +24,13 @@ namespace Business.Concrete
             _authorDal = authorDal;
         }
 
-        [SecuredOperation("admin author")]
+        [SecuredOperation("admin,author")]
         [ValidationAspect(typeof(AuthorValidator))]
         [CacheRemoveAspect("IAuthorService.Get")]
         public IResult Add(Author author)
         {
-            var result = BusinessRules.Run(CheckIfAuthorExists(author));
-            if (!result.Success)
+            IResult result = BusinessRules.Run(CheckIfAuthorExists(author));
+            if (result != null)
             {
                 return result;
             }

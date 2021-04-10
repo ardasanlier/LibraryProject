@@ -24,7 +24,7 @@ namespace Business.Concrete
             _publisherDal = publisherDal;
         }
 
-        [SecuredOperation("admin publisher")]
+        [SecuredOperation("admin,publisher")]
         [CacheRemoveAspect("IPublisherService.Get")]
         [ValidationAspect(typeof(PublisherValidator))]
         public IResult Add(Publisher publisher)
@@ -43,7 +43,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Publisher>>(_publisherDal.GetAll());
         }
 
-        [SecuredOperation("admin publisher")]
+        [SecuredOperation("admin,publisher")]
         [CacheRemoveAspect("IPublisherService.Get")]
         [ValidationAspect(typeof(PublisherValidator))]
         public IResult Update(Publisher publisher)
