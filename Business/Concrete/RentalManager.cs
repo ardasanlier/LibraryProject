@@ -36,9 +36,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalSucced);
         }
 
-        public IDataResult<List<RentalDetail>> GetRentalDetails(User user)
+        public IDataResult<List<Rental>> GetRentalByUserId(int userId)
         {
-            return new SuccessDataResult<List<RentalDetail>>(_rentalDal.GetRentalDetails(user));
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r=>r.UserId==userId),"Siparişleriniz");
         }
 
         private IResult CheckIfRentalExists(Rental rental)

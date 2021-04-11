@@ -26,18 +26,17 @@ namespace WebAPI.Controllers
             var result = _rentalService.Add(rental);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
             return BadRequest(result.Message);
         }
-        [HttpGet("getrentaldetail")]
-        public IActionResult GetRentalDetail(User user)
-
+        [HttpPost("getrentalbyuserid")]
+        public IActionResult GetRentalByUserId(int userId)
         {
-            var result = _rentalService.GetRentalDetails(user);
+            var result = _rentalService.GetRentalByUserId(userId);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
             return BadRequest(result.Message);
         }
@@ -47,9 +46,9 @@ namespace WebAPI.Controllers
             var result = _rentalService.Delete(rental);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
     }
 }

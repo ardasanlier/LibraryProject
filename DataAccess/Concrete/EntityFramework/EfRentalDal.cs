@@ -13,14 +13,14 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal:EfEntityRepositoryBase<Rental,LibraryContext>,IRentalDal
     {
-        public List<RentalDetail> GetRentalDetails(User user)
+        public List<RentalDetail> GetRentalDetails(int userId)
         {
             using (var context = new LibraryContext())
             {
                 var result = from rentalDetail in context.RentalDetails
                              join rental in context.Rentals
                              on rentalDetail.RentalId equals rental.RentalId
-                             where rental.UserId == user.Id
+                             where rental.UserId == userId
                              select new RentalDetail
                              {
                                  RentalId = rentalDetail.RentalId,

@@ -10,7 +10,7 @@ namespace Business.Abstract
 {
     public interface IRentalService
     {
-        IDataResult<List<RentalDetail>> GetRentalDetails(User user);
+        IDataResult<List<Rental>> GetRentalByUserId(int userId);
         IResult Add(Rental rental);
         IResult Delete(Rental rental);
         
