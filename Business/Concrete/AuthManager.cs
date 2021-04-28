@@ -24,25 +24,25 @@ namespace Business.Concrete
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            var claims = _userService.GetClaims(user);
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var result = _userService.GetClaims(user);
+            var accessToken = _tokenHelper.CreateToken(user, result.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
-            if (userToCheck == null)
+            var result = _userService.GetByMail(userForLoginDto.Email);
+            if (result.Data == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, result.Data.PasswordHash, result.Data.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
+            return new SuccessDataResult<User>(result.Data, Messages.SuccessfulLogin);
         }
 
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
@@ -56,10 +56,29 @@ namespace Business.Concrete
                 LastName = userForRegisterDto.LastName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                Status = true
+                Status = true,
+                Image = userForRegisterDto.Image
             };
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
+        }
+
+        public IResult Update(UserForUpdateDto userForUpdateDto)
+        {
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(userForUpdateDto.Password, out passwordHash, out passwordSalt);
+            var user = new User
+            {
+                Email = userForUpdateDto.Email,
+                FirstName = userForUpdateDto.FirstName,
+                LastName = userForUpdateDto.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true,
+                Image = userForUpdateDto.Image
+            };
+            _userService.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
         }
 
         public IResult UserExists(string email)
@@ -69,6 +88,10 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
             return new SuccessResult();
+        }
+        public IDataResult<User> GetByMail(string email)
+        {
+            return new SuccessDataResult<User>(_userService.GetByMail(email).Data);
         }
     }
 }

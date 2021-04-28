@@ -39,5 +39,7 @@ namespace Business.Constants
         public static string AuthorAdded = "Yazar Eklendi";
 
         public static string AuthorExists = "Yazar Zaten Bulunuyor";
+
+        public static string UserUpdated = "Kullanıcı Oluşturuldu";
     }
 }

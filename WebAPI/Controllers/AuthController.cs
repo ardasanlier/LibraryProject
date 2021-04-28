@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Entity.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,25 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
-
+        [HttpPost("update")]
+        public IActionResult Update(UserForUpdateDto userForUpdateDto)
+        {
+            var result = _authService.Update(userForUpdateDto);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+        [HttpGet("getbymail")]
+        public IActionResult GetByMail(string email)
+        {
+            var result = _authService.GetByMail(email);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }
